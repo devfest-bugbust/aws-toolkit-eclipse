@@ -63,22 +63,21 @@ public class ClientContextConfig {
         this.clientId = clientId;
     }
 
-    private String eclipseVersion() {
+    private String getVersion(String bundleName) {
         try {
-            Bundle bundle = Platform.getBundle("org.eclipse.platform");
+            Bundle bundle = Platform.getBundle(bundleName);
             return bundle.getVersion().toString();
         } catch (Exception e) {
             return "Unknown";
         }
     }
 
+    private String eclipseVersion() {
+        return getVersion("org.eclipse.platform");
+    }
+
     private String getPluginVersion() {
-        try {
-            Bundle bundle = Platform.getBundle("com.amazonaws.eclipse.core");
-            return bundle.getVersion().toString();
-        } catch (Exception e) {
-            return "Unknown";
-        }
+        return getVersion("com.amazonaws.eclipse.core");
     }
 
     public String getEnvPlatformName() {
